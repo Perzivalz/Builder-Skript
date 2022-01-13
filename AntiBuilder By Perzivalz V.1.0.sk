@@ -1,0 +1,52 @@
+# Ver.1.0
+# AntiBuilder
+# Credit : Perzivalz
+# ติดต่อได้ที่ : FB : Todsaporn Tarawan
+
+## Skript นี้จำเป็นต้องใช้ Plugin LuckPerms สามารถหาโหลดได้ผ่านทาง Spigot และเว็ป Official ของ LuckPerms
+## ช่อง "รหัสยืนยันตัวตน" และ "ชื่อผู้เล่น สามารถใส่รหัสและชื่อผู้เล่นได้ตามใจชอบ
+## และจำเป็นต้องใส่ Permission "server.builder" ให้ผู้เล่นที่ต้องการผ่าน Plugin Luckperms
+## ควร Setup Permission ต่างๆ ของยศ Builder ภายในเกมให้เรียบร้อยก่อนใช้งาน
+
+on join:
+    if player has permission "server.builder":
+        if player do not have permission "server.builder":
+            deop player
+            execute console command "luckperms user %player% parent set default"
+        if player has permission "server.admin":
+            deop player
+
+
+on disconnect:
+    if player has permission "server.builder":
+        if player do not have permission "server.admin":
+            deop player
+            execute console command "luckperms user %player% parent set default"
+        
+every second: 
+    loop all players:
+        loop-player is online:
+            if loop-player has permission "server.builder":
+                if loop-player do not have permission "server.admin":
+                    if loop-player is not "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" :
+                        execute console command "deop %loop-player%"
+                        execute console command "luckperms user %loop-player% parent set default"
+
+on load: 
+    set {builderlist} to "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น"
+
+
+command /builderverify [<text>]:
+    trigger:
+        if player is "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" or "ชื่อผู้เล่น" :
+			if arg-1 is not set:
+				send "&r &fกรุณายืนยันตัวตนก่อนใช้คำสั่ง"
+				stop
+			if arg-1 is not "รหัสยืนยันตัวตน":
+				send "&r &fรหัสผิด กรุณาลองใหม่อีกครั้ง!"
+				 
+			if arg-1 is "รหัสยืนยันตัวตน":
+				send "&r &fยืนยันตัวตนเรียบร้อย ท่านสามารถใช้คำสั่งต่างๆได้แล้ว!"
+                execute console command "luckperms user %player%  parent set builder"
+        else:
+            send "&cท่านไม่มีสิทธิ์ใช้คำสั่งนี้"
